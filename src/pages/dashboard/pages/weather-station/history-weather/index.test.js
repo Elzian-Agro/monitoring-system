@@ -87,7 +87,7 @@ describe('History weather component', () => {
 
     // Check display filter options
     expect(screen.getByText('Last 24 hours')).toBeInTheDocument();
-    expect(screen.getByText('1 min')).toBeInTheDocument();
+    expect(screen.getByText('5 min')).toBeInTheDocument();
   });
 
   it('shows message if history weather data not available', () => {
