@@ -236,5 +236,14 @@
   "There are no devices allocated yet.": "There are no devices allocated yet.",
   "There are no devices allocated yet. Please contact": "There are no devices allocated yet. Please contact",
   "Weather Station": "Weather Station",
-  "Widgets not found": "Widgets not found"
+  "Widgets not found": "Widgets not found",
+  "Rainfall": "Rainfall",
+  "Wind Direction": "Wind Direction",
+  "Instantaneous Wind Speed": "Instantaneous Wind Speed",
+  "UV Radiation": "UV Radiation",
+  "Illumination": "Illumination",
+  "Curent weather data not found": "Curent weather data not found!",
+  "There are no current weather data available!": "There are no current weather data available!",
+  "There are no history weather data available!": "There are no history weather data available!",
+  "HISTORY WEATHER": "HISTORY WEATHER"
 }

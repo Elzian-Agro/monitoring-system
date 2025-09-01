@@ -32,6 +32,8 @@ const UserProfile = () => {
   const logout = () => {
     localStorage.removeItem('jwtAccessToken');
     localStorage.removeItem('jwtRefreshToken');
+    localStorage.removeItem('Email');
+    localStorage.removeItem('Password');
     dispatch(clearUserData());
   };
 

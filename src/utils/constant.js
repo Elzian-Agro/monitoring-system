@@ -27,12 +27,34 @@ export const DeviceFactors = {
     'Electric Conductivity',
     'Soil Temperature',
   ],
+  'Weather Station': [
+    'Temperature',
+    'Humidity',
+    'Soil Moisture',
+    'Wind Speed',
+    'Wind Direction',
+    'Instantaneous Wind Speed',
+    'Rainfall',
+    'UV Radiation',
+    'illumination',
+  ],
 };
 
 export const menuMode = {
   open: 'open',
   partiallyOpen: 'onlyIcon',
   close: 'close',
+};
+
+export const weatherStationChartTypes = {
+  temperature: 'column',
+  humidity: 'line',
+  soil_moisture: 'line',
+  wind_speed: 'line',
+  instantaneous_wind_speed: 'line',
+  rainfall: 'column',
+  uv_radiation: 'line',
+  illumination: 'line',
 };
 
 export const errorType = {
@@ -150,6 +172,16 @@ export const errorType = {
     code: 13029,
     message: 'Portable device data not found',
   },
+
+  currentWeatherNotFound: {
+    code: 13031,
+    message: 'Curent weather data not found',
+  },
+
+  historyWeatherNotFound: {
+    code: 13032,
+    message: 'History weather data not found',
+  },
 };
 
 export const messages = {
@@ -227,3 +259,25 @@ export const weatherIcons = {
   '13d': 'https://cdn-icons-png.flaticon.com/128/13882/13882500.png',
   '50d': 'https://cdn-icons-png.flaticon.com/128/1779/1779931.png',
 };
+
+export const deviceCsvHeaders = [
+  'Device ID',
+  'User Name',
+  'Device Type',
+  'Monitoring Factors',
+  'Device Status',
+  'Disable',
+  'Created At',
+  'Updated At',
+];
+
+export const userCsvHeaders = [
+  'User Name',
+  'Organization Name',
+  'NIC',
+  'Phone Number',
+  'Email Address',
+  'Address',
+  'GPS',
+  'Disable',
+];

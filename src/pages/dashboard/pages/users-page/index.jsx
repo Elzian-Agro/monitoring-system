@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slice/dashboardLayoutSlice';
 import { PrimaryButton, VariantButton } from '../../components/base/Button';
-import { customTableStyles, messages } from 'utils/constant';
+import { customTableStyles, messages, userCsvHeaders } from 'utils/constant';
 import DataTable from 'react-data-table-component';
 import { downloadCSV } from '../../utils/download';
 import Form from './user-form';
@@ -13,6 +13,17 @@ import { useTranslation } from 'react-i18next';
 import Modal from 'components/common/modal';
 import useAxios from 'hooks/useAxios';
 import useFetch from 'hooks/useFetch';
+
+const transformUserData = (item) => ({
+  'User Name': `${item.firstName} ${item.lastName}`,
+  'Organization Name': item.orgName,
+  NIC: item.nic,
+  'Phone Number': item.phoneNum,
+  'Email Address': item.email,
+  Address: item.address,
+  GPS: `${item.location.latitude}, ${item.location.longitude}`,
+  Disable: item.isDisabled ? 'Yes' : 'No',
+});
 
 const ManageUsers = () => {
   const [filterText, setFilterText] = useState('');
@@ -160,7 +171,11 @@ const ManageUsers = () => {
         />
       )}
 
-      {(loading || isLoading) && <Loader />}
+      {(loading || isLoading) && (
+        <div className='h-[90vh]'>
+          <Loader />
+        </div>
+      )}
 
       {!isFormVisible && !loading && !isLoading && (
         <div className='flex flex-col shadow-lg bg-white dark:bg-secondary-dark-bg rounded-lg p-4'>
@@ -178,7 +193,7 @@ const ManageUsers = () => {
                 <VariantButton
                   text='Download'
                   Icon={ArrowDownTrayIcon}
-                  onClick={() => downloadCSV(filterUsers, 'users.csv')}
+                  onClick={() => downloadCSV(filterUsers, 'users.csv', userCsvHeaders, transformUserData)}
                 />
               )}
             </div>

@@ -150,7 +150,7 @@ describe('Manage Device Page', () => {
   });
 
   // Check not shown the add device button for farmers
-  it('does not show the Add Device button for admins', async () => {
+  it('does not show the Add Device button for farmers', async () => {
     const useSelectorMock = require('react-redux').useSelector;
     useSelectorMock.mockImplementation((selectorFn) => {
       if (selectorFn.toString().includes('state => state.user.userType')) {

@@ -11,6 +11,7 @@ import useAxios from 'hooks/useAxios';
 import { useNavigate } from 'react-router-dom';
 import { getNewAccessToken } from 'pages/dashboard/utils/getAccessToken';
 import useUserData from 'hooks/useUserData';
+import GlobalErrorModal from 'error';
 
 const getSidebarWidth = (activeMenu) => {
   switch (activeMenu) {
@@ -73,12 +74,15 @@ const Layout = () => {
   return (
     <div className={currentTheme === 'Dark' ? 'dark' : ''}>
       {isLoading ? (
-        <Loader />
+        <div className='h-screen'>
+          <Loader />
+        </div>
       ) : (
         <div>
           <Navbar mainContentMargin={mainContentMargin} />
           <div className={`${mainContentMargin} mt-16 ease-linear duration-300`}>
             <Outlet />
+            <GlobalErrorModal />
           </div>
           <Sidebar sidebarWidth={sidebarWidth} />
         </div>

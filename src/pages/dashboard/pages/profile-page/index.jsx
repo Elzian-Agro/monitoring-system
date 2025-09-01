@@ -88,7 +88,11 @@ const UserProfilePage = () => {
         />
       )}
 
-      {(loading || isLoading) && <Loader />}
+      {(loading || isLoading) && (
+        <div className='h-[90vh]'>
+          <Loader />
+        </div>
+      )}
 
       {!isFormVisible && !loading && !isLoading && user && (
         <div className='flex flex-col justify-center items-center bg-white dark:bg-secondary-dark-bg border border-gray-100 dark:border-gray-700 rounded-xl shadow-md mb-6'>

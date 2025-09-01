@@ -92,8 +92,8 @@ const Chart = ({ id, widget }) => {
             color: getColor('#ffffff', '#00000'),
           },
         },
-        min: 0,
-        max: 5,
+        min: axisTime.length - 5,
+        max: axisTime.length - 1,
         scrollbar: {
           enabled: true,
         },

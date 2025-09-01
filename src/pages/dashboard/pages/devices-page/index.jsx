@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTheme } from '../../slice/dashboardLayoutSlice';
 import { PrimaryButton, VariantButton } from '../../components/base/Button';
-import { customTableStyles, messages } from 'utils/constant';
+import { customTableStyles, messages, deviceCsvHeaders } from 'utils/constant';
 import DataTable from 'react-data-table-component';
 import { downloadCSV } from '../../utils/download';
 import Form from './device-form';
@@ -13,6 +13,17 @@ import { useTranslation } from 'react-i18next';
 import Modal from 'components/common/modal';
 import useAxios from 'hooks/useAxios';
 import useFetch from 'hooks/useFetch';
+
+const transformDeviceData = (item) => ({
+  'Device ID': item.deviceId,
+  'User Name': item.userId ? `${item.userId.firstName} ${item.userId.lastName}` : 'Unassigned',
+  'Device Type': item.deviceType,
+  'Monitoring Factors': item.monitoringFactors.join(', '),
+  'Device Status': item.deviceStatus,
+  Disable: item.isDisabled ? 'Yes' : 'No',
+  'Created At': new Date(item.deviceCreatedAt).toLocaleString(),
+  'Updated At': new Date(item.deviceUpdatedAt).toLocaleString(),
+});
 
 const DeviceManagement = () => {
   const [selectedDevice, setSelectedDevice] = useState(null);
@@ -178,7 +189,11 @@ const DeviceManagement = () => {
         />
       )}
 
-      {(isLoading || loading) && <Loader />}
+      {(isLoading || loading) && (
+        <div className='h-[90vh]'>
+          <Loader />
+        </div>
+      )}
 
       {!devices && !isLoading && !loading && userType === 'farmer' && (
         <div className='flex justify-center bg-white dark:bg-secondary-dark-bg rounded-lg p-8'>
@@ -210,7 +225,7 @@ const DeviceManagement = () => {
                 <VariantButton
                   text='Download'
                   Icon={ArrowDownTrayIcon}
-                  onClick={() => downloadCSV(filterDevices, 'devices.csv')}
+                  onClick={() => downloadCSV(filterDevices, 'devices.csv', deviceCsvHeaders, transformDeviceData)}
                 />
               )}
             </div>

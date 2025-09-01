@@ -103,7 +103,11 @@ const AgroEye = () => {
         />
       )}
 
-      {isLoading && <Loader />}
+      {isLoading && (
+        <div className='h-[90vh]'>
+          <Loader />
+        </div>
+      )}
 
       {!isFormVisible && !isLoading && (
         <div className='flex flex-col shadow-lg bg-white dark:bg-secondary-dark-bg rounded-lg p-6'>

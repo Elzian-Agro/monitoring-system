@@ -1,161 +1,242 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import useFetch from 'hooks/useFetch';
+import { useTranslation } from 'react-i18next';
+import Loader from 'pages/dashboard/components/common/loader';
+import SoilMoistureIcon from 'assets/images/weather-indicator/soil-moisture.png';
+import UvRadiationIcon from 'assets/images/weather-indicator/uv-radiation.png';
+import WindIcon from 'assets/images/weather-indicator/wind.png';
+import RainfallIcon from 'assets/images/weather-indicator/rain.png';
+import HumidityIcon from 'assets/images/weather-indicator/humidity.png';
+import TemperatureIcon from 'assets/images/weather-indicator/temperature.png';
+import IlluminationIcon from 'assets/images/weather-indicator/illumination.png';
+import instantWindSpeedIcon from 'assets/images/weather-indicator/instantaneous-wind-speed.png';
+import { ArrowUpIcon } from '@heroicons/react/24/outline';
 
 const CurrentWeather = () => {
-  const temperature = 32;
-  const humidity = 70;
-  const airPressure = 720;
-  const rainfall = 50;
-  const windDirection = 180;
-  const windSpeed = 15.6;
+  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [selectedWeatherData, setSelectedWeatherData] = useState([]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentMinute, setCurrentMinute] = useState(currentTime.getMinutes());
+
+  const { t } = useTranslation();
+
+  const { response: currentWeatherData, isLoading } = useFetch({
+    endpoint: 'weather-station/current',
+    method: 'GET',
+    call: 1,
+    requestBody: {},
+    dependency: [currentMinute],
+  });
+
+  useEffect(() => {
+    if (currentWeatherData) {
+      setSelectedDevice(currentWeatherData[0]?.deviceId);
+      setSelectedWeatherData(currentWeatherData[0]);
+    }
+
+    // Update time every second
+    const interval = setInterval(() => {
+      setCurrentTime((prevTime) => {
+        const newTime = new Date();
+        if (newTime.getMinutes() !== prevTime.getMinutes()) {
+          setCurrentMinute(newTime.getMinutes());
+        }
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [currentWeatherData]);
+
+  const handleDeviceChange = (e) => {
+    const deviceId = e.target.value;
+    setSelectedDevice(deviceId);
+
+    // Find the selected device data from the weatherData array
+    setSelectedWeatherData(currentWeatherData?.find((device) => device.deviceId === deviceId));
+  };
 
   return (
     <div>
-      {/* Header */}
       <div className='flex flex-col md:flex-row gap-2 md:gap-0 md:justify-between md:items-center mb-4'>
         <div>
-          <h2 className='text-lg font-semibold  text-gray-600 dark:text-gray-200'>Current Weather</h2>
-          <p className='text-gray-700 dark:text-gray-300'>10:52 A.M.</p>
+          <h2 className='text-md text-gray-600 dark:text-gray-300'>{t('CURRENT WEATHER')}</h2>
+          <div className='flex flex-row gap-4'>
+            <p className='font-bold text-sm text-gray-600 dark:text-gray-300'>
+              {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </p>
+            <div>
+              {currentWeatherData && selectedWeatherData?.batteryLevel && (
+                <div className='flex items-center space-x-1'>
+                  {/* Battery Level Indicator */}
+                  <div className='relative w-8 h-4 bg-gray-300 dark:bg-gray-700 rounded-md'>
+                    <div
+                      className='h-full bg-green-500 rounded-sm'
+                      style={{ width: `${selectedWeatherData.batteryLevel}%` }}></div>
+                  </div>
+
+                  <p className='font-bold text-sm text-gray-600 dark:text-gray-300'>
+                    {selectedWeatherData.batteryLevel}%
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        <select className='border border-gray-300 rounded-md p-2 focus:outline-none dark:bg-secondary-dark-bg dark:text-white'>
-          <option value='ELZ-003-01'>ELZ-003-01</option>
-          <option value='ELZ-003-02'>ELZ-003-02</option>
-        </select>
+
+        {!isLoading && Array.isArray(currentWeatherData) && currentWeatherData.length > 0 && (
+          <select
+            className='border border-gray-300 dark:border-gray-500 rounded-md p-2 focus:outline-none dark:bg-secondary-dark-bg dark:text-white'
+            value={selectedDevice || ''}
+            onChange={handleDeviceChange}>
+            {currentWeatherData?.map((device) => (
+              <option key={device.deviceId} value={device.deviceId}>
+                {device.deviceId}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
-      {/* Weather Cards */}
-      <div className='grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-        {/* Temperature */}
-        <div className='bg-gray-50 dark:bg-gray-800 rounded-md p-4 shadow'>
-          <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>Temperature</h3>
+      {isLoading && <Loader />}
 
-          <div className='flex items-center justify-center mt-4'>
-            <div className='relative w-8 h-40 bg-gray-200 rounded-full overflow-hidden'>
-              <div
-                className='absolute bottom-0 w-full bg-red-500'
-                style={{ height: `${((temperature - 0) / (50 - 0)) * 100}%` }}>
-                {/* min temp = 0 and max temp = 50 */}
+      {!isLoading && !currentWeatherData && (
+        <div className='flex justify-center bg-white dark:bg-secondary-dark-bg rounded-lg p-8'>
+          <p className='text-sm dark:text-white justify-center'>{t('There are no current weather data available!')}</p>
+        </div>
+      )}
+
+      {!isLoading && currentWeatherData && (
+        <div className='grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+          {/* Temperature */}
+          {selectedWeatherData?.temperature && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={TemperatureIcon} alt='soil' className='h-auto w-12' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Temperature')}</h3>
+                <p className='text-2xl font-semibold text-red-500'>{selectedWeatherData.temperature}°C</p>
               </div>
             </div>
-          </div>
+          )}
 
-          <p className='text-center text-4xl font-semibold text-red-500'>{temperature.toFixed(1)}°C</p>
-        </div>
+          {/* Humidity */}
+          {selectedWeatherData?.humidity && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={HumidityIcon} alt='soil' className='w-auto h-[50px]' />
+              </div>
 
-        {/* Humidity */}
-        <div className='bg-gray-50 dark:bg-gray-800 rounded-md p-4 shadow'>
-          <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>Humidity</h3>
-          <div className='flex flex-col items-center justify-center mt-4'>
-            <div className='relative w-40 h-40'>
-              <svg className='w-full h-full' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='none'>
-                <path
-                  d='M11 2C11 2 4 10 4 15C4 18.866 7.134 22 11 22C14.866 22 18 18.866 18 15C18 11 11 2 11 2Z'
-                  stroke='#e5e5e5'
-                  strokeWidth='0.8'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-                <path
-                  d='M11 2C11 2 4 10 4 15C4 18.866 7.134 22 11 22C14.866 22 18 18.866 18 15C18 11 11 2 11 2Z'
-                  fill='#4287f5'
-                  style={{
-                    clipPath: `inset(${100 - Math.max(0, Math.min(100, humidity))}% 0% 0% 0%)`,
-                  }}
-                />
-                {/* min humidity = 0 and max humidity = 100 */}
-              </svg>
-            </div>
-            <p className='text-center text-4xl font-semibold text-blue-500'>{humidity.toFixed(1)}%</p>
-          </div>
-        </div>
-
-        {/* Air Pressure */}
-        <div className='bg-gray-50 dark:bg-gray-800 rounded-md p-4 shadow'>
-          <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>Air Pressure</h3>
-          <div className='flex flex-col items-center justify-center mt-4'>
-            {/* Gauge */}
-            <div className='relative w-40 h-40'>
-              <svg className='w-full h-full' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'>
-                {/* Background Circle */}
-                <circle cx='18' cy='18' r='16' stroke='#e5e5e5' strokeWidth='4' fill='none' />
-                {/* Dynamic Fill */}
-                <circle
-                  cx='18'
-                  cy='18'
-                  r='16'
-                  stroke='#29c24c'
-                  strokeWidth='4'
-                  fill='none'
-                  strokeDasharray='100'
-                  strokeDashoffset={100 - Math.max(0, Math.min(100, ((airPressure - 700) / (800 - 700)) * 100))}
-                  transform='rotate(-90 18 18)'
-                />
-                {/* min air pressure = 700 and max air pressure = 800 */}
-              </svg>
-            </div>
-
-            <p className='text-center text-4xl font-semibold text-green-500'>{airPressure.toFixed(1)} mmHg</p>
-          </div>
-        </div>
-
-        {/* Wind */}
-        <div className='bg-gray-50 dark:bg-gray-800 rounded-md p-4 shadow'>
-          <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>Wind</h3>
-          <div className='flex flex-col justify-center items-center mt-4'>
-            <div className='relative w-40 h-40'>
-              <svg className='w-full h-full' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'>
-                {/* Background Circle */}
-                <circle cx='20' cy='20' r='16' stroke='#e5e5e5' strokeWidth='2' fill='none' />
-
-                {/* Direction Indicator */}
-                <circle
-                  cx='20'
-                  cy='20'
-                  r='16'
-                  stroke='#fcba03'
-                  strokeWidth='2'
-                  fill='none'
-                  strokeDasharray='2 100' /* Small stroke (2 units) and gap (100 units) */
-                  strokeDashoffset={100 - (windDirection / 360) * 100} /* Adjust position based on direction */
-                  transform='rotate(-90 20 20)' /* Rotate to align 0 degrees to the top */
-                />
-              </svg>
-
-              {/* Directional Text */}
-              <div className='absolute inset-0'>
-                <span className='text-xs text-gray-600 dark:text-gray-100 absolute top-6 left-1/2 transform -translate-x-1/2'>
-                  N
-                </span>
-                <span className='text-xs text-gray-600 dark:text-gray-100 absolute bottom-6 left-1/2 transform -translate-x-1/2'>
-                  S
-                </span>
-                <span className='text-xs text-gray-600 dark:text-gray-100 absolute left-6 top-1/2 transform -translate-y-1/2'>
-                  W
-                </span>
-                <span className='text-xs text-gray-600 dark:text-gray-100 absolute right-6 top-1/2 transform -translate-y-1/2'>
-                  E
-                </span>
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Humidity')}</h3>
+                <p className='text-2xl font-semibold' style={{ color: '#00DCFC' }}>
+                  {selectedWeatherData.humidity}%
+                </p>
               </div>
             </div>
-            <p className='text-center text-4xl font-semibold text-yellow-500 mt-2'> {windSpeed.toFixed(1)} kph</p>
-          </div>
-        </div>
+          )}
 
-        {/* Rainfall */}
-        <div className='bg-gray-50 dark:bg-gray-800 rounded-md p-4 shadow'>
-          <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>Rainfall</h3>
-          <div className='mt-4 flex flex-col items-center'>
-            <div className='relative w-24 h-40 bg-gray-200 rounded-b-md overflow-hidden border-2 border-gray-300'>
-              <div
-                className='absolute bottom-0 w-full bg-blue-500'
-                style={{
-                  height: `${Math.min((rainfall / 150) * 100, 100)}%`, // 150 = max rainfall
-                }}></div>
+          {/* Soil Moisture */}
+          {selectedWeatherData?.soil_moisture && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={SoilMoistureIcon} alt='soil moisture' className='w-auto h-16' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Soil Moisture')}</h3>
+                <p className='text-2xl font-semibold' style={{ color: '#66a3ff' }}>
+                  {selectedWeatherData.soil_moisture}%
+                </p>
+              </div>
             </div>
+          )}
 
-            <p className='text-center text-4xl font-semibold text-blue-500 mt-2'>{rainfall.toFixed(1)} mm</p>
-          </div>
+          {/* Rainfall  */}
+          {selectedWeatherData?.rainfall && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={RainfallIcon} alt='soil moisture' className='w-auto h-16' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Rainfall')}</h3>
+                <p className='text-2xl font-semibold' style={{ color: '#538cc6' }}>
+                  {selectedWeatherData.rainfall}mm
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Wind */}
+          {selectedWeatherData?.soil_moisture && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={WindIcon} alt='soil moisture' className='w-auto h-[50px]' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Wind Speed')}</h3>
+                <div className='flex flex-row'>
+                  <p className='text-2xl font-semibold text-green-500'>{selectedWeatherData.wind_speed}m/s</p>
+                  <ArrowUpIcon
+                    className='h-auto w-6 transform font-bold text-gray-400 ml-1 mt-1'
+                    style={{ transform: `rotate(${selectedWeatherData.wind_direction || 0}deg)` }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* UV Radiation  */}
+          {selectedWeatherData?.uv_radiation && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={UvRadiationIcon} alt='soil moisture' className='w-16 h-16' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('UV Radiation')}</h3>
+                <p className='text-2xl font-semibold text-yellow-500'>{selectedWeatherData.uv_radiation}W/m²</p>
+              </div>
+            </div>
+          )}
+
+          {/* Instantaneous Wind Speed  */}
+          {selectedWeatherData?.instantaneous_wind_speed && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={instantWindSpeedIcon} alt='soil moisture' className='w-auto h-16' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>
+                  {t('Instantaneous Wind Speed')}
+                </h3>
+                <p className='text-2xl font-semibold' style={{ color: '#538cc6' }}>
+                  {selectedWeatherData.instantaneous_wind_speed}m/s
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Illumination  */}
+          {selectedWeatherData?.illumination && (
+            <div className='flex flex-row rounded-md border border-gray-100 dark:border-gray-600 p-4 shadow-sm'>
+              <div className='flex items-end'>
+                <img src={IlluminationIcon} alt='soil moisture' className='w-auto h-16' />
+              </div>
+
+              <div className='flex flex-col justify-end pl-4'>
+                <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Illumination')}</h3>
+                <p className='text-2xl font-semibold text-yellow-500'>{selectedWeatherData.illumination}lux</p>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };

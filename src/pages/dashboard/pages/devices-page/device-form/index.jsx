@@ -148,6 +148,7 @@ const Form = ({ visible, onClose, device = null, formSubmission }) => {
                   options={[
                     { name: 'Monitoring System', value: 'Monitoring System' },
                     { name: 'Portable Device', value: 'Portable Device' },
+                    { name: 'Weather Station', value: 'Weather Station' },
                   ]}
                   required={true}
                 />

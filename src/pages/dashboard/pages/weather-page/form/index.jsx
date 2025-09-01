@@ -37,7 +37,7 @@ const Form = ({ userLocation, onClose }) => {
 
   return (
     <form className='flex flex-col lg:w-80' onSubmit={handleSubmit}>
-      <div className='flex justify-end'>
+      <div className='flex justify-end cursor-pointer'>
         <XMarkIcon
           className='h-4 w-4 text-red-600'
           onClick={() => {

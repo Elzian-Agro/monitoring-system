@@ -120,7 +120,11 @@ const WeatherComponent = () => {
         ) : null}
       </div>
 
-      {!weatherData && <Loader />}
+      {!weatherData && (
+        <div className='h-[70vh]'>
+          <Loader />
+        </div>
+      )}
 
       {weatherData && (
         <div className='flex flex-col gap-5'>
