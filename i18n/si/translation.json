@@ -172,7 +172,7 @@
   "Factors": "සාධක",
   "Temperature": "උෂ්ණත්වය",
   "Humidity": "ආර්දතාවය",
-  "Soil Moisture": "පාංශු තෙතමන",
+  "Soil Moisture": "පාංශු තෙතමනය",
   "Gas Detection": "ගෑස් හඳුනාගැනීම",
   "Ex: North Field": "උදා: උතුරු ක්ෂේත්‍රය",
   "Add New": "අලුතින්",
@@ -236,5 +236,14 @@
   "There are no devices allocated yet.": "තාම වෙන් කර ඇති උපාංග නොමැත.",
   "There are no devices allocated yet. Please contact": "තවමත් වෙන් කර ඇති උපාංග නොමැත. කරුණාකර සම්බන්ධ වන්න",
   "Weather Station": "කාලගුණ මධ්‍යස්ථානය",
-  "Widgets not found": "සටහන් හමු නොවීය"
+  "Widgets not found": "සටහන් හමු නොවීය",
+  "Rainfall": "වර්ෂාපතනය",
+  "Wind Direction": "සුළං දිශාව",
+  "Instantaneous Wind Speed": "ක්ෂණික සුළං වේගය",
+  "UV Radiation": "UV විකිරණ",
+  "Illumination": "ආලෝකය",
+  "Curent weather data not found": "වර්තමාන කාලගුණ දත්ත හමු නොවීය!",
+  "There are no current weather data available!": "වර්තමාන කාලගුණ දත්ත නොමැත!",
+  "There are no history weather data available!": "අතීත කාලගුණ දත්ත නොමැත!",
+  "HISTORY WEATHER": "අතීත කාලගුණය"
 }

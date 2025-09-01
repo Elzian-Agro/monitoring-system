@@ -236,5 +236,14 @@
   "There are no devices allocated yet.": "இன்னும் சாதனங்கள் எதுவும் ஒதுக்கப்படவில்லை.",
   "There are no devices allocated yet. Please contact": "இதுவரை சாதனங்கள் எதுவும் ஒதுக்கப்படவில்லை. தொடர்பு கொள்ளவும்",
   "Weather Station": "வானிலை நிலையம்",
-  "Widgets not found": "விட்ஜெட்டுகள் கிடைக்கவில்லை"
+  "Widgets not found": "விட்ஜெட்டுகள் கிடைக்கவில்லை",
+  "Rainfall": "மழை",
+  "Wind Direction": "காற்றின் திசை",
+  "Instantaneous Wind Speed": "உடனடி காற்றின் வேகம்",
+  "UV Radiation": "UV கதிர்வீச்சு",
+  "Illumination": "வெளிச்சம்",
+  "Curent weather data not found": "தற்போதைய வானிலை தரவு கிடைக்கவில்லை!",
+  "There are no current weather data available!": "தற்போதைய வானிலை தரவு எதுவும் இல்லை!",
+  "There are no history weather data available!": "வரலாற்று வானிலை தரவு எதுவும் கிடைக்கவில்லை!",
+  "HISTORY WEATHER": "வரலாறு வானிலை"
 }

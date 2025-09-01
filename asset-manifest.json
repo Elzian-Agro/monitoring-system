@@ -1,20 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.185de78d.css",
-    "main.js": "/static/js/main.d10b1959.js",
+    "main.css": "/static/css/main.9a49cf5c.css",
+    "main.js": "/static/js/main.dee1c49a.js",
     "static/js/787.e836ad96.chunk.js": "/static/js/787.e836ad96.chunk.js",
     "static/media/smart-farms.png": "/static/media/smart-farms.2e2b5b76180410e4279c.png",
     "static/media/cover.jpg": "/static/media/cover.b268d1b7e6243ac7ee8d.jpg",
     "static/media/logo.png": "/static/media/logo.7a9c95c3ea852126102a.png",
+    "static/media/humidity.png": "/static/media/humidity.8ab349dbe18b8f3fce5e.png",
+    "static/media/uv-radiation.png": "/static/media/uv-radiation.e091a2c8bcc45f204c23.png",
+    "static/media/soil-moisture.png": "/static/media/soil-moisture.76a186f1b7a1fd558b3f.png",
+    "static/media/instantaneous-wind-speed.png": "/static/media/instantaneous-wind-speed.e9119346b7102b55000e.png",
+    "static/media/wind.png": "/static/media/wind.8f39bcc4167d655fc500.png",
+    "static/media/rain.png": "/static/media/rain.0f90e4b02a1309e1319c.png",
+    "static/media/illumination.png": "/static/media/illumination.bbdfe76c5bf7e341fcd7.png",
     "static/media/avatar.png": "/static/media/avatar.0431e2167dc7538efb55.png",
+    "static/media/temperature.png": "/static/media/temperature.18135ac0e1f722a8437f.png",
     "index.html": "/index.html",
     "static/media/getFetch.cjs": "/static/media/getFetch.40f37ddea2378391108f.cjs",
-    "main.185de78d.css.map": "/static/css/main.185de78d.css.map",
-    "main.d10b1959.js.map": "/static/js/main.d10b1959.js.map",
+    "main.9a49cf5c.css.map": "/static/css/main.9a49cf5c.css.map",
+    "main.dee1c49a.js.map": "/static/js/main.dee1c49a.js.map",
     "787.e836ad96.chunk.js.map": "/static/js/787.e836ad96.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.185de78d.css",
-    "static/js/main.d10b1959.js"
+    "static/css/main.9a49cf5c.css",
+    "static/js/main.dee1c49a.js"
   ]
 }
