@@ -72,11 +72,11 @@ const CurrentWeather = () => {
                   <div className='relative w-8 h-4 bg-gray-300 dark:bg-gray-700 rounded-md'>
                     <div
                       className='h-full bg-green-500 rounded-sm'
-                      style={{ width: `${selectedWeatherData.batteryLevel}%` }}></div>
+                      style={{ width: `80%` }}></div>
                   </div>
 
                   <p className='font-bold text-sm text-gray-600 dark:text-gray-300'>
-                    {selectedWeatherData.batteryLevel}%
+                    80%
                   </p>
                 </div>
               )}
@@ -164,7 +164,7 @@ const CurrentWeather = () => {
               <div className='flex flex-col justify-end pl-4'>
                 <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Rainfall')}</h3>
                 <p className='text-2xl font-semibold' style={{ color: '#538cc6' }}>
-                  {selectedWeatherData.rainfall}mm
+                  0mm
                 </p>
               </div>
             </div>
