@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.9a49cf5c.css",
-    "main.js": "/static/js/main.21b91c2c.js",
+    "main.js": "/static/js/main.7fc91060.js",
     "static/js/787.e836ad96.chunk.js": "/static/js/787.e836ad96.chunk.js",
     "static/media/smart-farms.png": "/static/media/smart-farms.2e2b5b76180410e4279c.png",
     "static/media/cover.jpg": "/static/media/cover.b268d1b7e6243ac7ee8d.jpg",
@@ -18,11 +18,11 @@
     "index.html": "/index.html",
     "static/media/getFetch.cjs": "/static/media/getFetch.40f37ddea2378391108f.cjs",
     "main.9a49cf5c.css.map": "/static/css/main.9a49cf5c.css.map",
-    "main.21b91c2c.js.map": "/static/js/main.21b91c2c.js.map",
+    "main.7fc91060.js.map": "/static/js/main.7fc91060.js.map",
     "787.e836ad96.chunk.js.map": "/static/js/787.e836ad96.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9a49cf5c.css",
-    "static/js/main.21b91c2c.js"
+    "static/js/main.7fc91060.js"
   ]
 }
