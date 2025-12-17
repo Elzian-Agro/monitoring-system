@@ -163,7 +163,7 @@ const CurrentWeather = () => {
               <div className='flex flex-col justify-end pl-4'>
                 <h3 className='text-sm font-medium text-gray-600 dark:text-gray-100'>{t('Rainfall')}</h3>
                 <p className='text-2xl font-semibold' style={{ color: '#538cc6' }}>
-                  {selectedWeatherData.rainfall}mm
+                  0mm
                 </p>
               </div>
             </div>
