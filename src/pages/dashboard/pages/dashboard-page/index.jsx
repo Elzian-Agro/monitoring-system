@@ -21,12 +21,12 @@ const DashboardPage = () => {
           </div>
           {/* Card 3 */}
           <div className='bg-gradient-to-br from-green-500 to-lime-500 bg-opacity-20 p-6 rounded-xl shadow-md'>
-            <h2 className='text-xl font-semibold text-white mb-4'>{t('Disaster Alert')}</h2>
-            <p className='text-white'>{t('SMS Enable')}</p>
+            <h2 className='text-xl font-semibold text-white mb-4'>{t('Soil Monitoring')}</h2>
+            <p className='text-white'>{t('Enable')}</p>
           </div>
           {/* Card 4 */}
           <div className='bg-gradient-to-br from-green-500 to-lime-500 bg-opacity-20 p-6 rounded-xl shadow-md'>
-            <h2 className='text-xl font-semibold text-white mb-4'>{t('Farmers Info Hub')}</h2>
+            <h2 className='text-xl font-semibold text-white mb-4'>{t('Smart Agro Assistant')}</h2>
             <p className='text-white'>{t('Enable')}</p>
           </div>
         </div>

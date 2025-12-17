@@ -65,22 +65,21 @@ const CurrentWeather = () => {
             <p className='font-bold text-sm text-gray-600 dark:text-gray-300'>
               {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </p>
-            <div>
+            {/* <div>
               {currentWeatherData && selectedWeatherData?.batteryLevel && (
                 <div className='flex items-center space-x-1'>
-                  {/* Battery Level Indicator */}
-                  <div className='relative w-8 h-4 bg-gray-300 dark:bg-gray-700 rounded-md'>
-                    <div
-                      className='h-full bg-green-500 rounded-sm'
-                      style={{ width: `80%` }}></div>
-                  </div>
+                 <div className='relative w-8 h-4 bg-gray-300 dark:bg-gray-700 rounded-md'>
+                  <div
+                    className='h-full bg-green-500 rounded-sm'
+                    style={{ width: `80%` }}></div>
+                </div>
 
-                  <p className='font-bold text-sm text-gray-600 dark:text-gray-300'>
-                    80%
-                  </p>
+                <p className='font-bold text-sm text-gray-600 dark:text-gray-300'>
+                  80%
+                </p>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
 

@@ -146,25 +146,25 @@ const Charts = () => {
     <div className='flex flex-col gap-6 bg-white dark:bg-secondary-dark-bg mb-6'>
       {temperatureOptions && (
         <div className='bg-white dark:bg-secondary-dark-bg rounded-md border border-gray-100 dark:border-gray-600 shadow-md shadow-black/5 p-1 w-full'>
-          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Temperature')}</h1>
+          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Temperature')} (°C)</h1>
           <HighchartsReact highcharts={Highcharts} options={temperatureOptions} />
         </div>
       )}
       {humidityOptions && (
         <div className='bg-white dark:bg-secondary-dark-bg rounded-md border border-gray-100 dark:border-gray-600 shadow-md shadow-black/5 p-1 w-full'>
-          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Humidity')}</h1>
+          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Humidity')} (%)</h1>
           <HighchartsReact highcharts={Highcharts} options={humidityOptions} />
         </div>
       )}
       {soilMoistureOptions && (
         <div className='bg-white dark:bg-secondary-dark-bg rounded-md border border-gray-100 dark:border-gray-600 shadow-md shadow-black/5 p-1 w-full'>
-          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Soil Moisture')}</h1>
+          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Soil Moisture')} (%)</h1>
           <HighchartsReact highcharts={Highcharts} options={soilMoistureOptions} />
         </div>
       )}
       {gasDetectionOptions && (
         <div className='bg-white dark:bg-secondary-dark-bg rounded-md border border-gray-100 dark:border-gray-600 shadow-md shadow-black/5 p-1 w-full'>
-          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Gas Detection')}</h1>
+          <h1 className='text-md text-center font-semibold dark:text-white'>{t('Gas Detection')} (ppm)</h1>
           <HighchartsReact highcharts={Highcharts} options={gasDetectionOptions} />
         </div>
       )}

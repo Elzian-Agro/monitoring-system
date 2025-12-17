@@ -23,6 +23,29 @@ const Chart = ({ id, widget }) => {
 
   const getColor = (darkColor, lightColor) => (currentMode === 'Dark' ? darkColor : lightColor);
 
+  // Define units and display names for each factor
+  const factorConfig = {
+    temperature: { name: 'Temperature', unit: '°C' },
+    humidity: { name: 'Humidity', unit: '%' },
+    soil_moisture: { name: 'Soil Moisture', unit: '%' },
+    gas_detection: { name: 'Gas Detection', unit: 'ppm' },
+  };
+
+  // Helper function to get factor config by matching factor name
+  const getFactorInfo = (factorName) => {
+    const normalizedFactor = factorName.toLowerCase().replace(/\s+/g, '_');
+    return factorConfig[normalizedFactor] || { name: factorName, unit: '' };
+  };
+
+  // Get unit for labels
+  const getUnit = (devices) => {
+    const allFactors = devices?.flatMap(device => device.factors || []) || [];
+    const uniqueFactors = [...new Set(allFactors)];
+    const units = uniqueFactors.map(f => getFactorInfo(f).unit).filter(u => u);
+    const uniqueUnits = [...new Set(units)];
+    return uniqueUnits.length === 1 ? uniqueUnits[0] : '';
+  };
+
   useEffect(() => {
     const startDateTime = new Date(widget?.startDateTime);
     const endDateTime = new Date(widget?.endDateTime);
@@ -47,12 +70,19 @@ const Chart = ({ id, widget }) => {
           timeSeriesData.push(entry ? entry[factor] : null);
         });
 
+        const factorInfo = getFactorInfo(factor);
+
         return {
-          name: deviceId + ' ' + factor,
+          name: `${deviceId} ${factorInfo.name}`,
           data: timeSeriesData,
+          tooltip: {
+            valueSuffix: ` ${factorInfo.unit}`,
+          },
         };
       });
     });
+
+    const factorUnit = getUnit(widget?.devices);
 
     const chartConfig = {
       chart: {
@@ -107,6 +137,7 @@ const Chart = ({ id, widget }) => {
           },
         },
         labels: {
+          format: factorUnit ? `{value} ${factorUnit}` : '{value}',
           style: {
             color: getColor('#ffffff', '#00000'),
           },
