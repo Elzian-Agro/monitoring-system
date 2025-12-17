@@ -67,8 +67,8 @@ describe('About US Page', () => {
 
     expect(screen.getByText('Weather Monitoring')).toBeInTheDocument();
     expect(screen.getByText('Weather Prediction')).toBeInTheDocument();
-    expect(screen.getByText('Disaster Alert')).toBeInTheDocument();
-    expect(screen.getByText('Farmers Info Hub')).toBeInTheDocument();
+    expect(screen.getByText('Soil Monitoring')).toBeInTheDocument();
+    expect(screen.getByText('Smart Agro Assistant')).toBeInTheDocument();
 
     // Check temperature chart
     // expect(screen.getByText('Temperature')).toBeInTheDocument();
