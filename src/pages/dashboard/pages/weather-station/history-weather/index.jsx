@@ -261,14 +261,14 @@ const HistoryWeather = () => {
             </div>
           )}
 
-          {chartOptions.rainfall && (
+          {/* {chartOptions.rainfall && (
             <div className='bg-white dark:bg-secondary-dark-bg rounded-md border border-gray-100 dark:border-gray-600 shadow-md shadow-black/5 p-1 w-full'>
               <h1 className='text-center text-sm font-medium text-gray-600 dark:text-gray-100 mb-2'>
                 {t('Rainfall')} (mm)
               </h1>
               <HighchartsReact highcharts={Highcharts} options={chartOptions.rainfall} />
             </div>
-          )}
+          )} */}
 
           {chartOptions.wind_speed && (
             <div className='bg-white dark:bg-secondary-dark-bg rounded-md border border-gray-100 dark:border-gray-600 shadow-md shadow-black/5 p-1 w-full'>
